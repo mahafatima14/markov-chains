@@ -56,8 +56,8 @@ def make_chains(text_string):
         else:
             chains[word_pair_key].append(word_pair_value)
 
-        for keys, values in chains.items():
-            print(f'{keys}, {values}')
+        #for keys, values in chains.items():
+            #print(f'{keys}, {values}')
     
     return chains
 
@@ -65,32 +65,28 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
-    words = []
+    new_story = []
 
     # your code goes here
     # randomly create "link" that selects one of the keys from our dictionary 
     # and a random word from list of values that follows it. Put into words list
 
     #creates a new key by randomly selecting from the list of keys in the chains dict
-    initial_key = choice(list(chains.keys()))
+    key = choice(list(chains.keys()))
     #indexing the values from initial_key to store in the words list
-    words = [initial_key[0], initial_key[1]]
+    new_story = [key[0], key[1]]
     #adding a randomly selected value from the initial_key in the chains dict and appending it to words list
-    
-    
-    next_word = chains[initial_key]
-    #words.append(choice(initial_key))
-    
+
+    #print("next word is:", next_word)
     #loop through text to append until reaches end of text
-    new_key = words[-2:]
-    new_key = tuple(new_key)
-    print("New Key: ", new_key)
-
-
+    word = choice(chains[key])
     
+    while word is not None: 
+        key = (key[1], word)
+        new_story.append(word)
+        word = choice(chains[key])
     
-    print("value of words list", words)
-    return ' '.join(words)
+    return ' '.join(new_story)
 
 
 input_path = 'green-eggs.txt'
